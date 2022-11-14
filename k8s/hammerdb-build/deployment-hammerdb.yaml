@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hammerdb
+  labels:
+    component: hammerdb
+spec:
+  selector:
+    matchLabels:
+      component: hammerdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: hammerdb
+    spec:
+      containers:
+        - image: docker.io/robertbartlettbaron/k-hammerdb:latest
+          name: hammerdb
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/usr/bin/sleep"
+          args:
+            - "10000"
+          ports:
+            - containerPort: 8080
