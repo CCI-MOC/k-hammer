@@ -8,6 +8,7 @@ resources:
   # - bc-hammerdb.yaml
   # - is-hammerdb.yaml
   - deployment-mariadb.yaml
+  - ns-hammerdb.yaml
   - pvc-mariadb.yaml
   - svc-mariadb.yaml
   - deployment-hammerdb.yaml
