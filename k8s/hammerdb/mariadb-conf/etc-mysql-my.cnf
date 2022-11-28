@@ -105,7 +105,7 @@ long_query_time = 10
 
 # Performance schema enablement
 # see (https://mariadb.com/kb/en/performance-schema-overview/)
-performance-schema=OFF
+performance_schema=OFF
 # performance_schema=ON
 # performance-schema-instrument='stage/%=ON'
 # performance-schema-consumer-events-stages-current=ON
