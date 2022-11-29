@@ -8,10 +8,12 @@ resources:
   # - bc-hammerdb.yaml
   # - is-hammerdb.yaml
   - deployment-mariadb.yaml
+  - deployment-mariadb-ephemeral.yaml
+  - deployment-hammerdb.yaml
   - ns-hammerdb.yaml
   - pvc-mariadb.yaml
   - svc-mariadb.yaml
-  - deployment-hammerdb.yaml
+  - svc-mariadb-ephemeral.yaml
 
 configMapGenerator:
   - name: cm-mariadb-conf
@@ -19,6 +21,10 @@ configMapGenerator:
       - my.cnf=mariadb-conf/etc-mysql-my.cnf
       - mariadb.cnf=mariadb-conf/etc-mysql-mariadb.cnf
       - mysqld_safe_syslog.cnf=mariadb-conf/etc-mysql-conf.d-mysqld_safe_syslog.cnf
+      - maria_ephemeral_tprocc_build.tcl=hammerdb-scripts/maria_ephemeral_tprocc_build.tcl
+      - maria_ephemeral_tprocc_run.tcl=hammerdb-scripts/maria_ephemeral_tprocc_run.tcl
+      - maria_tprocc_build.tcl=hammerdb-scripts/maria_tprocc_build.tcl
+      - maria_tprocc_run.tcl=hammerdb-scripts/maria_tprocc_run.tcl
 
 generatorOptions:
   disableNameSuffixHash: true

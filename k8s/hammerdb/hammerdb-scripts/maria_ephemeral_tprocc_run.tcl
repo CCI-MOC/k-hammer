@@ -8,7 +8,7 @@ puts "SETTING CONFIGURATION"
 dbset db maria
 dbset bm TPC-C
 
-diset connection maria_host mariadb
+diset connection maria_host mariadb-ephemeral
 diset connection maria_port 3306
 
 diset tpcc maria_user root
