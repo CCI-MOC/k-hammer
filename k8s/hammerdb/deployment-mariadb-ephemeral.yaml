@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-ephemeral
+  labels:
+    component: mariadb-ephemeral
+spec:
+  selector:
+    matchLabels:
+      component: mariadb-ephemeral
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: mariadb-ephemeral
+    spec:
+      containers:
+        - image: mariadb:10.3.34
+          name: mariadb
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              value: pass
+          ports:
+            - containerPort: 3306
+              name: mariadb
+          volumeMounts:
+            - name: vol-mariadb
+              mountPath: /var/lib/mysql
+            - name: vol-mariadb-conf
+              mountPath: /etc/mysql/my.cnf
+              subPath: my.cnf
+            - name: vol-mariadb-conf
+              mountPath: /etc/mysql/mariadb.cnf
+              subPath: mariadb.cnf
+            - name: vol-mariadb-conf
+              mountPath: /etc/mysql/conf.d/mysqld_safe_syslog.cnf
+              subPath: mysqld_safe_syslog.cnf
+      volumes:
+        - name: vol-mariadb
+          emptyDir: {}
+        - name: vol-mariadb-conf
+          configMap:
+            name: cm-mariadb-conf
