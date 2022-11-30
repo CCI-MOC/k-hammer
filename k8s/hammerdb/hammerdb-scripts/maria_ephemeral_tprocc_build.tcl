@@ -1,5 +1,4 @@
 #!/bin/tclsh
-# maintainer: Pooja Jain
 
 # This is moved to the env of the container as this causes hammerdb auto to fail
 # Set the path for logs directory. By Default logs are logged in /tmp
