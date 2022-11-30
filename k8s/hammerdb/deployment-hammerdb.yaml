@@ -25,3 +25,20 @@ spec:
             - "10000"
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_build.tcl
+              subPath: maria_ephemeral_tprocc_build.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_run.tcl
+              subPath: maria_ephemeral_tprocc_run.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_build.tcl
+              subPath: maria_tprocc_build.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_run.tcl
+              subPath: maria_tprocc_run.tcl
+      volumes:
+        - name: vol-mariadb-conf
+          configMap:
+            name: cm-mariadb-conf
