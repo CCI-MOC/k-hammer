@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-tprocc-mariadb-ephemeral
+spec:
+  template:
+    spec:
+      initContainers:
+        - image: docker.io/robertbartlettbaron/k-hammerdb:latest
+          name: hammerdb-build
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/home/hammerdb/HammerDB-4.5/hammerdbcli"
+          args:
+            - "auto"
+            - "/home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_build.tcl"
+          env:
+            - name: "TMP"
+              value: "/tmp"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_build.tcl
+              subPath: maria_ephemeral_tprocc_build.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_run.tcl
+              subPath: maria_ephemeral_tprocc_run.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_build.tcl
+              subPath: maria_tprocc_build.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_run.tcl
+              subPath: maria_tprocc_run.tcl
+      containers:
+        - image: docker.io/robertbartlettbaron/k-hammerdb:latest
+          name: hammerdb-run
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/home/hammerdb/HammerDB-4.5/hammerdbcli"
+          args:
+            - "auto"
+            - "/home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_run.tcl"
+          env:
+            - name: "TMP"
+              value: "/tmp"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_build.tcl
+              subPath: maria_ephemeral_tprocc_build.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_run.tcl
+              subPath: maria_ephemeral_tprocc_run.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_build.tcl
+              subPath: maria_tprocc_build.tcl
+            - name: vol-mariadb-conf
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_run.tcl
+              subPath: maria_tprocc_run.tcl
+      volumes:
+        - name: vol-mariadb-conf
+          configMap:
+            name: cm-mariadb-conf
+      restartPolicy: Never
+  backoffLimit: 2
