@@ -23,6 +23,9 @@ spec:
             - "/usr/bin/sleep"
           args:
             - "10000"
+          env:
+            - name: "TMP"
+              value: "/tmp"
           ports:
             - containerPort: 8080
           volumeMounts:
