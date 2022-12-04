@@ -16,7 +16,7 @@ spec:
         component: hammerdb
     spec:
       containers:
-        - image: docker.io/robertbartlettbaron/k-hammerdb:latest
+        - image: ghcr.io/cci-moc/k-hammer:nightly 
           name: hammerdb
           imagePullPolicy: IfNotPresent
           command:

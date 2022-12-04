@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       initContainers:
-        - image: docker.io/robertbartlettbaron/k-hammerdb:latest
+        - image: ghcr.io/cci-moc/k-hammer:nightly:
           name: hammerdb-build
           imagePullPolicy: IfNotPresent
           command:
