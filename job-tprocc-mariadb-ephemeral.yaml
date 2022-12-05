@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       initContainers:
-        - image: ghcr.io/cci-moc/k-hammer:nightly:
+        - image: ghcr.io/cci-moc/k-hammer:nightly
           name: hammerdb-build
           imagePullPolicy: IfNotPresent
           command:
@@ -20,20 +20,11 @@ spec:
           ports:
             - containerPort: 8080
           volumeMounts:
-            - name: vol-mariadb-conf
+            - name: vol-hammer-scripts
               mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_build.tcl
               subPath: maria_ephemeral_tprocc_build.tcl
-            - name: vol-mariadb-conf
-              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_run.tcl
-              subPath: maria_ephemeral_tprocc_run.tcl
-            - name: vol-mariadb-conf
-              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_build.tcl
-              subPath: maria_tprocc_build.tcl
-            - name: vol-mariadb-conf
-              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_run.tcl
-              subPath: maria_tprocc_run.tcl
       containers:
-        - image: docker.io/robertbartlettbaron/k-hammerdb:latest
+        - image: ghcr.io/cci-moc/k-hammer:nightly
           name: hammerdb-run
           imagePullPolicy: IfNotPresent
           command:
@@ -47,21 +38,12 @@ spec:
           ports:
             - containerPort: 8080
           volumeMounts:
-            - name: vol-mariadb-conf
-              mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_build.tcl
-              subPath: maria_ephemeral_tprocc_build.tcl
-            - name: vol-mariadb-conf
+            - name: vol-hammer-scripts
               mountPath: /home/hammerdb/HammerDB-4.5/maria_ephemeral_tprocc_run.tcl
               subPath: maria_ephemeral_tprocc_run.tcl
-            - name: vol-mariadb-conf
-              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_build.tcl
-              subPath: maria_tprocc_build.tcl
-            - name: vol-mariadb-conf
-              mountPath: /home/hammerdb/HammerDB-4.5/maria_tprocc_run.tcl
-              subPath: maria_tprocc_run.tcl
       volumes:
-        - name: vol-mariadb-conf
+        - name: vol-hammer-scripts
           configMap:
-            name: cm-mariadb-conf
+            name: cm-k-hammer
       restartPolicy: Never
   backoffLimit: 2

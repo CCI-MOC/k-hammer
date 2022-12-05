@@ -16,7 +16,7 @@ resources:
   - svc-mariadb-ephemeral.yaml
 
 configMapGenerator:
-  - name: cm-mariadb-conf
+  - name: cm-k-hammer
     files:
       - my.cnf=mariadb-conf/etc-mysql-my.cnf
       - mariadb.cnf=mariadb-conf/etc-mysql-mariadb.cnf
