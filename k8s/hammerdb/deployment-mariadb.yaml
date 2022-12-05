@@ -42,4 +42,4 @@ spec:
             claimName: pvc-mariadb
         - name: vol-mariadb-conf
           configMap:
-            name: cm-mariadb-conf
+            name: cm-k-hammer

@@ -1,4 +1,4 @@
-FROM docker.io/robertbartlettbaron/hammerdb:latest
+FROM ghcr.io/cci-moc/hammerdb:master
 
 RUN apt install -y python3
 RUN apt install -y wget
