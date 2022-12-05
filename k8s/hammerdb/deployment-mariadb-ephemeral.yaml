@@ -42,3 +42,4 @@ spec:
         - name: vol-mariadb-conf
           configMap:
             name: cm-k-hammer
+
