@@ -10,6 +10,7 @@ This will deploy the following pods:
 
     mariadb-ephemeral    - mariadb that is using the ephemeral disk for storage
     mariadb              - mariadb that is using a persistent volume for storage
+    mariadb-ssd          - mariadb that is using SSD persistent volume for storage
     hammerdb             - can run the hammerdb manually
 # To run in a kubernetes job
 Just create the job with the yaml in the top directory of the repo.  Naming convention is
@@ -23,6 +24,10 @@ To run the tprocc benchmark on mariadb backed by a persistent volume:
 To run the tprocc benchmark on mariadb backed by ephemeral storage
 
     oc create -f job-tprocc-mariadb-ephemeral.yaml	 
+
+To run the tprocc benchmark on mariadb backed by ephemeral storage
+
+    oc create -f job-tprocc-mariadb-ssd.yaml	 
 
 Creating the job will start a container to run the benchmark.  To find the correct
 container, uss:
