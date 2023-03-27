@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: pvc-mariadb
 spec:
+  storageClassName: ocs-external-storagecluster-ceph-rbd
   accessModes:
     - ReadWriteOnce
   resources:
