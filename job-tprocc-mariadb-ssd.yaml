@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-tprocc-mariadb-ssd
+spec:
+  template:
+    spec:
+      initContainers:
+        - image: ghcr.io/cci-moc/k-hammer:nightly
+          name: hammerdb-build
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/home/hammerdb/HammerDB-4.5/hammerdbcli"
+          args:
+            - "auto"
+            - "/home/hammerdb/HammerDB-4.5/maria_ssd_tprocc_build.tcl"
+          env:
+            - name: "TMP"
+              value: "/tmp"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: vol-hammer-scripts
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ssd_tprocc_build.tcl
+              subPath: maria_ssd_tprocc_build.tcl
+      containers:
+        - image: ghcr.io/cci-moc/k-hammer:nightly
+          name: hammerdb-run
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/home/hammerdb/HammerDB-4.5/hammerdbcli"
+          args:
+            - "auto"
+            - "/home/hammerdb/HammerDB-4.5/maria_ssd_tprocc_run.tcl"
+          env:
+            - name: "TMP"
+              value: "/tmp"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: vol-hammer-scripts
+              mountPath: /home/hammerdb/HammerDB-4.5/maria_ssd_tprocc_run.tcl
+              subPath: maria_ssd_tprocc_run.tcl
+      volumes:
+        - name: vol-hammer-scripts
+          configMap:
+            name: cm-k-hammer
+      restartPolicy: Never
+  backoffLimit: 2

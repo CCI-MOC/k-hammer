@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-mariadb
+  name: pvc-mariadb-ssd
 spec:
-  storageClassName: ocs-external-storagecluster-ceph-rbd
+  storageClassName: ocs-external-storagecluster-ceph-rbd-ssd
   accessModes:
     - ReadWriteOnce
   resources:
